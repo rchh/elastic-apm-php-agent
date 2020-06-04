@@ -115,7 +115,7 @@ class Agent
 
         // Init the Transport "Layer"
         $this->connector = new Connector($this->config);
-        $this->connector->putEvent(new Metadata([], $this->config));
+       // $this->connector->putEvent(new Metadata([], $this->config));
 
         // Start Global Agent Timer
         $this->timer = new Timer();
@@ -228,6 +228,9 @@ class Agent
      */
     public function putEvent(EventBean $event)
     {
+        if($this->connector->isPayloadSet() === false) {
+            $this->connector->putEvent(new Metadata([], $this->config));
+        }
         $this->connector->putEvent($event);
     }
 
@@ -257,12 +260,10 @@ class Agent
             return true;
         }
 
-        // Put the preceding Metadata
-        // TODO -- add context ?
         if($this->connector->isPayloadSet() === false) {
-            $this->putEvent(new Metadata([], $this->config));
+            $this->connector->putEvent(new Metadata([], $this->config));
         }
-
+        
         // Start Payload commitment
         foreach($this->transactionsStore->list() as $event) {
             $this->connector->putEvent($event);
