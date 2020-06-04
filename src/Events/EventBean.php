@@ -68,7 +68,7 @@ class EventBean
         'request'  => [],
         'user'     => [],
         'custom'   => [],
-        'env'      => [],
+        'env'      => ["DOCUMENT_ROOT"],
         'tags'     => [],
         'response' => [
             'finished'     => true,
