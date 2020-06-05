@@ -111,6 +111,12 @@ class Span extends TraceableEvent implements \JsonSerializable
     {
         $this->type = trim($type);
     }
+    
+    
+    public function setDuration(int $duration)
+    {
+        $this->duration = $duration;
+    }
 
     /**
      * Set a complimentary Stacktrace for the Span
